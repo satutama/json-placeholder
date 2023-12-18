@@ -5,7 +5,9 @@ export const routes: Routes = [
   {
     path: 'posts',
     loadComponent: () =>
-      import('./posts/posts.component').then((mod) => mod.PostsComponent),
+      import('./features/posts/posts.component').then(
+        (mod) => mod.PostsComponent
+      ),
   },
   { path: '**', redirectTo: 'posts' },
 ];

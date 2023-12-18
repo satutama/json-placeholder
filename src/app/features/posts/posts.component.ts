@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { JsonPlaceholderService } from '../json-placeholder.service';
-import { Post } from '../post';
+
+import { Post } from 'src/app/features/posts/post';
+import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
 import { PostComponent } from './post/post.component';
 
 @Component({
