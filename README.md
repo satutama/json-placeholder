@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.10.
 
+This application uses [jsonplaceholder](https://jsonplaceholder.typicode.com/) API to fetch [100 posts](https://jsonplaceholder.typicode.com/posts).
+
+All posts are rendered in a separate component and showed as squares, 10 rows x 10 columns.
+
+By default, the post title is shown.
+When clicking on a square, the title will be replaced with the userId.
+When clicking again, the Id will be shown and so on...
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
