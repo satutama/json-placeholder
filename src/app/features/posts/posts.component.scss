@@ -16,10 +16,7 @@
   background-color: #eee;
   border-radius: 10px;
   box-shadow: 0px 2px 0px 2px #ddd;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   &:active {
     box-shadow: none;
