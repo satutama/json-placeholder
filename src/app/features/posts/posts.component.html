@@ -1,11 +1,16 @@
 <h1>10 * 10 Json Placeholder</h1>
 
-<div class="posts-container">
-  <ng-container *ngIf="posts$ | async as posts; else error">
-    <app-post *ngFor="let post of posts" [post]="post"></app-post>
-  </ng-container>
+<ng-container *ngIf="loadablePosts$ | async as loadablePosts">
+  <p *ngIf="loadablePosts.isLoading; else loaded" class="loading">Loading...</p>
 
-  <ng-template #error>
-    <p>please refresh</p>
+  <ng-template #loaded>
+    <div *ngIf="loadablePosts.value as posts" class="posts-container">
+      <app-post *ngFor="let post of posts" [post]="post"> </app-post>
+    </div>
+
+    <div *ngIf="!loadablePosts.value" class="error-container">
+      <h3>Oops! Something went wrong. Please try again.</h3>
+      <button (click)="reloadPage()">Reload page</button>
+    </div>
   </ng-template>
-</div>
+</ng-container>
