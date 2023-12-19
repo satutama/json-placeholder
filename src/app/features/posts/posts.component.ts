@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Post } from 'src/app/features/posts/post';
 import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
@@ -13,24 +13,10 @@ import { PostComponent } from './post/post.component';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements OnInit, OnDestroy {
-  private readonly subscriptions = new Subscription();
+export class PostsComponent {
+  public readonly posts$: Observable<Post[] | undefined>;
 
-  constructor(private jsonPlaceholderService: JsonPlaceholderService) {}
-
-  public posts!: Post[];
-
-  ngOnInit(): void {
-    this.subscriptions.add(this.getPosts());
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  private getPosts() {
-    this.jsonPlaceholderService
-      .getPosts()
-      .subscribe((posts) => (this.posts = posts));
+  constructor(private jsonPlaceholderService: JsonPlaceholderService) {
+    this.posts$ = this.jsonPlaceholderService.getPosts();
   }
 }
