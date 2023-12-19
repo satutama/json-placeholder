@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Post } from '../features/posts/post';
+import { Loadable } from '../utils/loadable';
+import { mapToLoadable } from '../utils/mapToLoadable';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +13,7 @@ export class JsonPlaceholderService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<Post[] | undefined> {
-    return this.http
-      .get<Post[]>(`${this.url}/posts`)
-      .pipe(catchError(() => of(undefined)));
+  getPosts(): Observable<Loadable<Post[]>> {
+    return this.http.get<Post[]>(`${this.url}/posts`).pipe(mapToLoadable);
   }
 }

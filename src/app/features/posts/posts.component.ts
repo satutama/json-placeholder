@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Post } from 'src/app/features/posts/post';
 import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
+import { Loadable } from 'src/app/utils/loadable';
+import { Post } from './post';
 import { PostComponent } from './post/post.component';
 
 @Component({
@@ -14,9 +15,13 @@ import { PostComponent } from './post/post.component';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent {
-  public readonly posts$: Observable<Post[] | undefined>;
+  public readonly loadablePosts$: Observable<Loadable<Post[]>>;
 
   constructor(private jsonPlaceholderService: JsonPlaceholderService) {
-    this.posts$ = this.jsonPlaceholderService.getPosts();
+    this.loadablePosts$ = this.jsonPlaceholderService.getPosts();
+  }
+
+  public reloadPage() {
+    window.location.reload();
   }
 }
