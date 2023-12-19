@@ -17,12 +17,19 @@ export class PostComponent implements OnInit {
   private currentDataIndex = 0;
 
   public ngOnInit(): void {
-    this.content = Object.values(this.post);
+    this.content = [
+      this.post.title,
+      this.post.userId,
+      this.post.id,
+      this.post.body,
+    ];
+
     this.displayedContent = this.content[this.currentDataIndex];
   }
 
   public nextContent(): void {
     this.currentDataIndex++;
+
     if (this.currentDataIndex >= this.content.length) {
       this.currentDataIndex = 0;
     }
