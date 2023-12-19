@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
 import { Loadable } from 'src/app/utils/loadable';
-import { Post } from './post';
+import { Post } from './post/post';
 import { PostComponent } from './post/post.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class PostsComponent {
     this.loadablePosts$ = this.jsonPlaceholderService.getPosts();
   }
 
-  public reloadPage() {
+  public reloadPage(): void {
     window.location.reload();
   }
 }
