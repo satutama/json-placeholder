@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/features/posts/post';
+import { Post } from 'src/app/features/posts/post/post';
 
 @Component({
   selector: 'app-post',

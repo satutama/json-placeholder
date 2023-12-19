@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from '../features/posts/post';
+import { Post } from '../features/posts/post/post';
 import { Loadable } from '../utils/loadable';
 import { mapToLoadable } from '../utils/mapToLoadable';
 
