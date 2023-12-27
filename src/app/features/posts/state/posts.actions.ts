@@ -10,3 +10,8 @@ export const loadPostsFailure = createAction(
   '[Posts] Load Posts Failure',
   props<{ error: any }>()
 );
+
+export const showNextContent = createAction(
+  '[Post] Update Post',
+  props<{ id: number }>()
+);

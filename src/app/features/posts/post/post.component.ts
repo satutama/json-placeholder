@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/features/posts/post/post';
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as PostsActions from '../state/posts.actions';
 
 @Component({
   selector: 'app-post',
@@ -9,31 +10,12 @@ import { Post } from 'src/app/features/posts/post/post';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent implements OnInit {
-  @Input({ required: true }) post!: Post;
-
-  public displayedContent!: string | number;
-  private content!: (string | number)[];
-  private currentDataIndex = 0;
-
-  public ngOnInit(): void {
-    this.content = [
-      this.post.title,
-      this.post.userId,
-      this.post.id,
-      this.post.body,
-    ];
-
-    this.displayedContent = this.content[this.currentDataIndex];
-  }
+export class PostComponent {
+  @Input() id!: number;
+  @Input() displayedContent!: string | number;
+  constructor(private store: Store) {}
 
   public nextContent(): void {
-    this.currentDataIndex++;
-
-    if (this.currentDataIndex >= this.content.length) {
-      this.currentDataIndex = 0;
-    }
-
-    this.displayedContent = this.content[this.currentDataIndex];
+    this.store.dispatch(PostsActions.showNextContent({ id: this.id }));
   }
 }

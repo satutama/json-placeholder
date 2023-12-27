@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
 import * as PostsActions from './posts.actions';
+import { parsePostsResponse } from './util';
 @Injectable()
 export class PostsEffects {
   loadPosts$ = createEffect(() =>
@@ -11,7 +12,11 @@ export class PostsEffects {
       ofType(PostsActions.loadPosts),
       switchMap(() =>
         this.jsonPlaceholderService.getPosts().pipe(
-          map((posts) => PostsActions.loadPostsSuccess({ posts: posts })),
+          map((postsResponse) => {
+            const posts = parsePostsResponse(postsResponse);
+
+            return PostsActions.loadPostsSuccess({ posts });
+          }),
           catchError((error) => of(PostsActions.loadPostsFailure({ error })))
         )
       )

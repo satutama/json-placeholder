@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from '../features/posts/post/post';
+
+export interface PostResponse {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +17,7 @@ export class JsonPlaceholderService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.url}/posts`);
+  getPosts(): Observable<PostResponse[]> {
+    return this.http.get<PostResponse[]>(`${this.url}/posts`);
   }
 }
