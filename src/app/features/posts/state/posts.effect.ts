@@ -12,11 +12,11 @@ export class PostsEffects {
       ofType(PostsActions.loadPosts),
       switchMap(() =>
         this.jsonPlaceholderService.getPosts().pipe(
-          map((postsResponse) => {
-            const posts = parsePostsResponse(postsResponse);
-
-            return PostsActions.loadPostsSuccess({ posts });
-          }),
+          map((postsResponse) =>
+            PostsActions.loadPostsSuccess({
+              posts: parsePostsResponse(postsResponse),
+            })
+          ),
           catchError((error) => of(PostsActions.loadPostsFailure({ error })))
         )
       )

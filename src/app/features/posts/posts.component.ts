@@ -20,7 +20,7 @@ import {
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  public readonly posts$: Observable<Post[] | undefined>;
+  public readonly posts$: Observable<Post[]>;
   public readonly isLoading$: Observable<boolean>;
   public readonly isError$: Observable<any>;
 
