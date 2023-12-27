@@ -10,4 +10,3 @@ export const loadPostsFailure = createAction(
   '[Posts] Load Posts Failure',
   props<{ error: any }>()
 );
-export const selectNextPost = createAction('[Posts] Select Next Post');
