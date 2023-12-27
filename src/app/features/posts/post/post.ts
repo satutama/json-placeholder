@@ -1,6 +1,5 @@
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
+import { PostResponse } from 'src/app/services/json-placeholder.service';
+
+export interface Post extends PostResponse {
+  displayIndex: number;
 }

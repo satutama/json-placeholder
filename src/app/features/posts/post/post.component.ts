@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/features/posts/post/post';
+import { Store } from '@ngrx/store';
+import * as PostsActions from '../state/posts.actions';
+import { Post } from './post';
 
 @Component({
   selector: 'app-post',
@@ -10,30 +12,35 @@ import { Post } from 'src/app/features/posts/post/post';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  @Input({ required: true }) post!: Post;
+  @Input() post!: Post;
 
   public displayedContent!: string | number;
-  private content!: (string | number)[];
-  private currentDataIndex = 0;
+
+  constructor(private store: Store) {}
 
   public ngOnInit(): void {
-    this.content = [
-      this.post.title,
-      this.post.userId,
-      this.post.id,
-      this.post.body,
-    ];
-
-    this.displayedContent = this.content[this.currentDataIndex];
+    this.displayedContent = this.getValueByIndex(
+      this.post.displayIndex,
+      this.post
+    );
   }
 
   public nextContent(): void {
-    this.currentDataIndex++;
+    this.store.dispatch(PostsActions.showNextContent({ id: this.post.id }));
+  }
 
-    if (this.currentDataIndex >= this.content.length) {
-      this.currentDataIndex = 0;
+  private getValueByIndex(index: number, post: Post): string | number {
+    switch (index) {
+      case 0:
+        return post.title;
+      case 1:
+        return post.id;
+      case 2:
+        return post.userId;
+      case 3:
+        return post.body;
+      default:
+        return `Index ${index} is not supported.`;
     }
-
-    this.displayedContent = this.content[this.currentDataIndex];
   }
 }

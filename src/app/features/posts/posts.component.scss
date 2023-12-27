@@ -1,14 +1,11 @@
-$maxWidth: 1500px; //150 *10
-
 :host {
   display: block;
-  width: $maxWidth;
   margin: 0 auto;
 }
 
 .posts-container {
   display: grid;
-  grid-template-columns: repeat(10, 150px);
+  grid-template-columns: repeat(10, 170px);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 }
