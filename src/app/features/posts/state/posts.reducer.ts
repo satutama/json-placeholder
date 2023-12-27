@@ -1,10 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { Loadable } from 'src/app/utils/loadable';
-import { Post } from '../post/post';
 import * as PostsActions from './posts.actions';
+import { PostsState } from './posts.state';
 
-export const initialState: Loadable<Post[]> = {
-  isLoading: false,
+export const initialState: PostsState = {
+  posts: {
+    isLoading: false,
+  },
 };
 
 export const postsReducer = createReducer(
