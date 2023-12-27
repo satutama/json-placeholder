@@ -10,13 +10,15 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
+import { PostsEffects } from './features/posts/state/posts.effect';
+import { postsReducer } from './features/posts/state/posts.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
-    provideStore(),
-    provideEffects(),
+    provideStore({ posts: postsReducer }),
+    provideEffects([PostsEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
