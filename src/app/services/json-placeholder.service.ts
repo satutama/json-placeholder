@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface PostResponse {
   userId: number;
@@ -17,7 +17,9 @@ export class JsonPlaceholderService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<PostResponse[]> {
-    return this.http.get<PostResponse[]>(`${this.url}/posts`);
+  public getPosts(): Observable<PostResponse[]> {
+    return this.http
+      .get<PostResponse[]>(`${this.url}/posts`)
+      .pipe(catchError((error) => throwError(() => error)));
   }
 }

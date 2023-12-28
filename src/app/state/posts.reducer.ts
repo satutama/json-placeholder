@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Post } from '../post/post';
+import { Post } from '../components/post/post';
 import * as PostsActions from './posts.actions';
 import { updatePostDisplayIndex } from './util';
 
@@ -24,7 +24,7 @@ export const postsReducer = createReducer(
   })),
   on(PostsActions.showNextContent, (state, { id }) => {
     const updatedPosts = state.value.map((post) =>
-      updatePostDisplayIndex(post, id)
+      post.id === id ? updatePostDisplayIndex(post, id) : post
     );
 
     return {

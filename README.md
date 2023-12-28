@@ -17,40 +17,53 @@ This application uses [jsonplaceholder](https://jsonplaceholder.typicode.com/) A
 
 ## My process and what I learned
 
+The design idea is based from a Calendar and a Launchpad (novation). But I decided to keep it simple because RGB colors just seems too much.
+
 1. Created the app with CLI command `ng new json-placeholder`
 2. Created the json-placeholde.service.ts with Post model
 3. Added the Posts and Post component with basic function
-4. Retest(s) and refactor(s)
-
-To handle loading state and error state, I created `Loadable` type.
-I find this to improve readability and maintainability.
-And later on the code can be reused accrros different components, reducing code repetition.
-
-I also added `mapToLoadable` operator. This operator transforms an observable to a `Loadable` value.
-This can be used to manage the data loading process more effectively and provide a consistent user experience.
+4. Install NgRx Dependencies
+5. Define State:
+   ```js
+   export interface PostsState {
+     posts: {
+       isLoading: boolean,
+       value: Post[],
+       error?: any,
+     };
+   }
+   ```
+6. Define Actions:
+   For loading posts handling errors, and showing next item for each post
+7. Define Reducers:
+   For handling state changes based on the actions
+8. Define effects:
+   The effect will update the posts response to have display index for each post object.
+9. Update components and service:
+   The Post component needs a Post input. The `displayedContent` method will then get the correct item to be displayed based on the displayed context using a switch statement.
+   The `nextContent()` method dispatrches the `showNextContent` action which is handled by reducer in the store. This is to decouple the component from the state management logic.
+   I also added selectors to get the PostsState from the store as well as isLoading and isError for displaying different states in the template.
+10. Retest(s) and refactor(s)
 
 I made the Posts component template so that when we load the page, the loading state will be displayed before the request is completed. And when the request failed, the error state will be displayed.
 
 ```html
-<ng-container *ngIf="loadablePosts$ | async as loadablePosts">
-  <p *ngIf="loadablePosts.isLoading; else loaded" class="loading">Loading...</p>
+<p *ngIf="(isLoading$ | async); else loaded" class="loading">Loading...</p>
 
-  <ng-template #loaded>
-    <div *ngIf="loadablePosts.value as posts" class="posts-container">
-      <app-post *ngFor="let post of posts" [post]="post"> </app-post>
-    </div>
+<ng-template #loaded>
+  <div *ngIf="(posts$ | async) as posts" class="posts-container">
+    <app-post *ngFor="let post of posts" [post]="post"> </app-post>
+  </div>
 
-    <div *ngIf="!loadablePosts.value" class="error-container">
-      <h3>Oops! Something went wrong. Please try again.</h3>
-      <button (click)="reloadPage()">Reload page</button>
-    </div>
-  </ng-template>
-</ng-container>
+  <div *ngIf="(isError$ | async) " class="error-container">
+    <h3>Oops! Something went wrong. Please try again.</h3>
+    <button (click)="reloadPage()">Reload page</button>
+  </div>
+</ng-template>
 ```
 
 ### Continued development
 
-- Extend `Loadable` and `mapToLoadable` to return error iso undefined (maybe we want to display the error message for example)
 - Unit tests
 - improve on design and user experience (_Art is never finished, only abandoned_ - Leonardo da Vinci)
 

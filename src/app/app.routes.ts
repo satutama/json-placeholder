@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: 'posts',
     loadComponent: () =>
-      import('./features/posts/posts.component').then(
+      import('./components/posts/posts.component').then(
         (mod) => mod.PostsComponent
       ),
   },
