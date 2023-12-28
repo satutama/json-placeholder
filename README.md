@@ -39,12 +39,11 @@ The design idea is based from a Calendar and a Launchpad (novation). But I decid
    For handling state changes based on the actions
 8. Define effects:
    The effect will update the posts response to have display index for each post object.
-9. Update components and service
+9. Update components and service:
    The Post component needs a Post input. The `displayedContent` method will then get the correct item to be displayed based on the displayed context using a switch statement.
    The `nextContent()` method dispatrches the `showNextContent` action which is handled by reducer in the store. This is to decouple the component from the state management logic.
+   I also added selectors to get the PostsState from the store as well as isLoading and isError for displaying different states in the template.
 10. Retest(s) and refactor(s)
-
-The Post response
 
 I made the Posts component template so that when we load the page, the loading state will be displayed before the request is completed. And when the request failed, the error state will be displayed.
 
