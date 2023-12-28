@@ -1,5 +1,5 @@
 import { PostResponse } from 'src/app/services/json-placeholder.service';
-import { Post } from '../post/post';
+import { Post } from '../components/post/post';
 
 export const INITIAL_DISPLAY_INDEX = 0;
 

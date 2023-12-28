@@ -10,8 +10,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
-import { PostsEffects } from './features/posts/state/posts.effect';
-import { postsReducer } from './features/posts/state/posts.reducer';
+import { PostsEffects } from './state/posts.effect';
+import { postsReducer } from './state/posts.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

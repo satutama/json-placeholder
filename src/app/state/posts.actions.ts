@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Post } from '../post/post';
+import { Post } from '../components/post/post';
 
 export const loadPosts = createAction('[Posts] Load Posts');
 export const loadPostsSuccess = createAction(

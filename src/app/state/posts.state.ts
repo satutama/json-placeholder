@@ -1,9 +1,9 @@
-import { Post } from '../post/post';
+import { Post } from '../components/post/post';
 
 export interface PostsState {
   posts: {
     isLoading: boolean;
     value: Post[];
-    error?: any;
+    error: any;
   };
 }

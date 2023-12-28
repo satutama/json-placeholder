@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as PostsActions from '../state/posts.actions';
+import * as PostsActions from '../../state/posts.actions';
 import { Post } from './post';
 
 @Component({
