@@ -5,6 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { JsonPlaceholderService } from 'src/app/services/json-placeholder.service';
 import * as PostsActions from './posts.actions';
 import { parsePostsResponse } from './util';
+
 @Injectable()
 export class PostsEffects {
   loadPosts$ = createEffect(() =>
