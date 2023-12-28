@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as PostsActions from '../state/posts.actions';
 import { Post } from './post';
@@ -11,36 +11,27 @@ import { Post } from './post';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   @Input() post!: Post;
 
-  public displayedContent!: string | number;
-
   constructor(private store: Store) {}
-
-  public ngOnInit(): void {
-    this.displayedContent = this.getValueByIndex(
-      this.post.displayIndex,
-      this.post
-    );
-  }
 
   public nextContent(): void {
     this.store.dispatch(PostsActions.showNextContent({ id: this.post.id }));
   }
 
-  private getValueByIndex(index: number, post: Post): string | number {
-    switch (index) {
+  public get displayedContent(): string | number {
+    switch (this.post.displayIndex) {
       case 0:
-        return post.title;
+        return this.post.title;
       case 1:
-        return post.id;
+        return this.post.id;
       case 2:
-        return post.userId;
+        return this.post.userId;
       case 3:
-        return post.body;
+        return this.post.body;
       default:
-        return `Index ${index} is not supported.`;
+        return `Index ${this.post.displayIndex} is not supported.`;
     }
   }
 }
