@@ -30,6 +30,10 @@ export class PostsComponent implements OnInit {
     this.store.dispatch(PostsActions.loadPosts());
   }
 
+  public nextContent(id: number): void {
+    this.store.dispatch(PostsActions.showNextContent({ id }));
+  }
+
   public reloadPage(): void {
     window.location.reload();
   }
