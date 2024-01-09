@@ -2,9 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { PostsState } from 'src/app/state/posts.state';
+import {
+  selectError,
+  selectLoading,
+  selectPosts,
+} from 'src/app/state/posts.selector';
+import { AppState } from 'src/app/state/posts.state';
 import * as PostsActions from '../../state/posts.actions';
-import * as PostsSelectors from '../../state/posts.selector';
 import { Post } from '../post/post';
 import { PostComponent } from '../post/post.component';
 
@@ -16,15 +20,12 @@ import { PostComponent } from '../post/post.component';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  public readonly posts$: Observable<Post[]>;
-  public readonly isLoading$: Observable<boolean>;
-  public readonly isError$: Observable<any>;
+  public readonly posts$: Observable<Post[]> = this.store.select(selectPosts);
+  public readonly isLoading$: Observable<boolean> =
+    this.store.select(selectLoading);
+  public readonly isError$: Observable<any> = this.store.select(selectError);
 
-  constructor(private store: Store<PostsState>) {
-    this.isLoading$ = this.store.select(PostsSelectors.isLoadingSelector);
-    this.posts$ = this.store.select(PostsSelectors.postsSelector);
-    this.isError$ = this.store.select(PostsSelectors.isErrorSelector);
-  }
+  constructor(private store: Store<AppState>) {}
 
   public ngOnInit(): void {
     this.store.dispatch(PostsActions.loadPosts());
