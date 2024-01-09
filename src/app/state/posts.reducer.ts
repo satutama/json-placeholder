@@ -1,35 +1,35 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Post } from '../components/post/post';
 import * as PostsActions from './posts.actions';
-import { updatePostDisplayIndex } from './util';
-
-export const initialState = {
-  isLoading: false,
-  value: [] as Post[],
-};
+import { adapter, initialState } from './posts.state';
+import { updateDisplayIndex } from './util';
 
 export const postsReducer = createReducer(
   initialState,
   on(PostsActions.loadPosts, (state) => ({ ...state, isLoading: true })),
-  on(PostsActions.loadPostsSuccess, (state, { posts }) => ({
-    ...state,
-    isLoading: false,
-    value: posts,
-  })),
+  on(PostsActions.loadPostsSuccess, (state, { posts }) =>
+    adapter.addMany(posts, { ...state, isLoading: false })
+  ),
   on(PostsActions.loadPostsFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error,
+    isError: true,
   })),
   on(PostsActions.showNextContent, (state, { id }) => {
-    const updatedPosts = state.value.map((post) =>
-      post.id === id ? updatePostDisplayIndex(post, id) : post
-    );
+    let post = state.entities[id];
+
+    if (post) {
+      return adapter.updateOne(
+        {
+          id,
+          changes: updateDisplayIndex(post),
+        },
+        state
+      );
+    }
 
     return {
       ...state,
-      value: updatedPosts,
     };
   })
 );
