@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, retry, throwError } from 'rxjs';
 
 export interface PostResponse {
   userId: number;
@@ -18,8 +18,13 @@ export class JsonPlaceholderService {
   constructor(private http: HttpClient) {}
 
   public getPosts(): Observable<PostResponse[]> {
-    return this.http
-      .get<PostResponse[]>(`${this.url}/posts`)
-      .pipe(catchError((error) => throwError(() => error)));
+    return this.http.get<PostResponse[]>(`${this.url}/posts`).pipe(
+      retry(3),
+      catchError(() =>
+        throwError(
+          () => new Error('Something bad happened; please try again later.')
+        )
+      )
+    );
   }
 }
