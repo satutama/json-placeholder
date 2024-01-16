@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as PostsActions from '../../state/posts.actions';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Post } from './post';
 
 @Component({
@@ -10,14 +14,14 @@ import { Post } from './post';
   imports: [CommonModule],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent {
   @Input() post!: Post;
-
-  constructor(private store: Store) {}
+  @Output() nextContentEvent = new EventEmitter<number>();
 
   public nextContent(): void {
-    this.store.dispatch(PostsActions.showNextContent({ id: this.post.id }));
+    this.nextContentEvent.emit(this.post.id);
   }
 
   public get displayedContent(): string | number {

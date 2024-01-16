@@ -1,14 +1,14 @@
-<h1>10 * 10 Json Placeholder</h1>
+<h1 class="text-3xl font-bold my-6">10 * 10 Json Placeholder</h1>
 
-<p *ngIf="(isLoading$ | async); else loaded" class="loading">Loading...</p>
+<p *ngIf="(isLoading$ | async); else loaded" class="flex flex-col items-center">Loading...</p>
 
 <ng-template #loaded>
-  <div *ngIf="(posts$ | async) as posts" class="posts-container">
-    <app-post *ngFor="let post of posts" [post]="post">
+  <div *ngIf="(posts$ | async) as posts" class="grid grid-cols-10 gap-3">
+    <app-post *ngFor="let post of posts" [post]="post" (nextContentEvent)="nextContent($event)">
     </app-post>
   </div>
 
-  <div *ngIf="(isError$ | async) " class="error-container">
+  <div *ngIf="(isError$ | async)" class="flex flex-col items-center">
     <h3>Oops! Something went wrong. Please try again.</h3>
     <button (click)="reloadPage()">Reload page</button>
   </div>

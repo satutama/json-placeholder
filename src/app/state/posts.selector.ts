@@ -1,5 +1,20 @@
-import { PostsState } from 'src/app/state/posts.state';
+import { createSelector } from '@ngrx/store';
+import { AppState, PostsState } from 'src/app/state/posts.state';
+import { Post } from '../components/post/post';
 
-export const postsSelector = (state: PostsState) => state.posts.value;
-export const isLoadingSelector = (state: PostsState) => state.posts.isLoading;
-export const isErrorSelector = (state: PostsState) => state.posts.error;
+export const selectPostsFeature = (state: AppState) => state.posts;
+
+export const selectPosts = createSelector(
+  selectPostsFeature,
+  (state: PostsState) => Object.values(state.entities) as Post[]
+);
+
+export const selectLoading = createSelector(
+  selectPostsFeature,
+  (state: PostsState) => !!state.isLoading
+);
+
+export const selectError = createSelector(
+  selectPostsFeature,
+  (state: PostsState) => !!state.isError
+);

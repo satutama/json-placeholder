@@ -10,18 +10,25 @@ export const parsePostsResponse = (postsResponse: PostResponse[]): Post[] => {
   }));
 };
 
-export const updatePostDisplayIndex = (post: Post, id: number) => {
-  if (post.id === id) {
-    let updatedIndex = post.displayIndex + 1;
-    if (updatedIndex >= Object.keys(post).length - 1) {
-      updatedIndex = INITIAL_DISPLAY_INDEX;
-    }
-
-    return {
-      ...post,
-      displayIndex: updatedIndex,
-    };
+export const getUpdatedDisplayIndex = (post: Post): number => {
+  let updatedIndex = post.displayIndex + 1;
+  if (updatedIndex >= Object.keys(post).length - 1) {
+    updatedIndex = INITIAL_DISPLAY_INDEX;
   }
 
-  return post;
+  return updatedIndex;
+};
+
+export const updateDisplayIndex = (post: Post): Post => {
+  let updatedIndex = post.displayIndex + 1;
+  if (updatedIndex >= Object.keys(post).length - 1) {
+    updatedIndex = INITIAL_DISPLAY_INDEX;
+  }
+
+  const updatedPost = {
+    ...post,
+    displayIndex: updatedIndex,
+  };
+
+  return updatedPost;
 };

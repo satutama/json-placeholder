@@ -1,8 +1,4 @@
-import {
-  INITIAL_DISPLAY_INDEX,
-  parsePostsResponse,
-  updatePostDisplayIndex,
-} from './util';
+import { INITIAL_DISPLAY_INDEX, parsePostsResponse } from './util';
 
 describe('util', () => {
   describe('parsePostsResponse', () => {
@@ -33,44 +29,6 @@ describe('util', () => {
         expect(parsedPosts[i].body).toBe(postsResponse[i].body);
         expect(parsedPosts[i].displayIndex).toBe(INITIAL_DISPLAY_INDEX);
       }
-    });
-  });
-
-  describe('updatePostDisplayIndex', () => {
-    it('should update the display index of a post', () => {
-      const post = {
-        id: 1,
-        title: 'Post Title',
-        userId: 1,
-        body: 'Post Content',
-        displayIndex: 0,
-      };
-
-      const updatedPost = updatePostDisplayIndex(post, 1);
-
-      expect(updatedPost.id).toBe(1);
-      expect(updatedPost.title).toBe('Post Title');
-      expect(updatedPost.userId).toBe(1);
-      expect(updatedPost.body).toBe('Post Content');
-      expect(updatedPost.displayIndex).toBe(1);
-    });
-
-    it('should wrap the display index when it reaches the end', () => {
-      const post = {
-        id: 1,
-        title: 'Post Title',
-        userId: 1,
-        body: 'Post Content',
-        displayIndex: 3,
-      };
-
-      const updatedPost = updatePostDisplayIndex(post, 1);
-
-      expect(updatedPost.id).toBe(1);
-      expect(updatedPost.title).toBe('Post Title');
-      expect(updatedPost.userId).toBe(1);
-      expect(updatedPost.body).toBe('Post Content');
-      expect(updatedPost.displayIndex).toBe(0);
     });
   });
 });
