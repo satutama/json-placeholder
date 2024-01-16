@@ -3,7 +3,7 @@
 <p *ngIf="(isLoading$ | async); else loaded" class="loading">Loading...</p>
 
 <ng-template #loaded>
-  <div *ngIf="(posts$ | async) as posts" class="posts-container">
+  <div *ngIf="(posts$ | async) as posts" class="grid grid-cols-10 gap-3">
     <app-post *ngFor="let post of posts" [post]="post" (nextContentEvent)="nextContent($event)">
     </app-post>
   </div>
